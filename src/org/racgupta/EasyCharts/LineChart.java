@@ -40,7 +40,7 @@ public class LineChart extends XYChart {
 //		System.out.println("Inside Main"+time.length);
 		//chart begins
 		LineChart lc = new LineChart();
-		lc.setTitle("Dummy chart");
+		lc.setTitle("Customized chart using D3JS");
 		
 		Axis x = new Axis();
 		Axis y = new Axis();

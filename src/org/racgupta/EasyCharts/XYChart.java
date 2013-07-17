@@ -56,6 +56,7 @@ private Boolean convertData()
 		xyChartCode += getDataCode();		
 		xyChartCode += getDomainCode();
 		xyChartCode += getAxisCode();
+		xyChartCode +=getTitleCode();
 		xyChartCode += "svg.append(\"g\")"+
 				".attr(\"class\",\"x axis\")"+
 				".attr(\"transform\", \"translate(0," + getHeight()+ ")\")"+

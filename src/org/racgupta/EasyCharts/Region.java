@@ -22,10 +22,10 @@ public class Region {
 		super();
 		this.totalWidth = 800;
 		this.totalHeight = 600;
-		this.leftMargin = 20;
+		this.leftMargin = 40;
 		this.rightMargin = 20;
-		this.topMargin = 20;
-		this.bottomMargin = 20;
+		this.topMargin = 40;
+		this.bottomMargin = 40;
 		
 
 	}	
