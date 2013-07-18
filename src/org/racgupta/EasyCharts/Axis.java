@@ -10,15 +10,12 @@ package org.racgupta.EasyCharts;
  * @author racgupta
  * 
  */
-public class Axis {
+public class Axis{
 
 	public Axis() {
-
-	
 	}
 
 
-	//Information
 	private String title;
 	private long min;
 	private long max;
@@ -26,6 +23,7 @@ public class Axis {
 	private String unit;
 	private String orient;
 	int[] data;
+	
 	
 	
 	public int[] getData() {
@@ -96,17 +94,6 @@ public class Axis {
 	public void setDomain(String domain) {
 		Domain = domain;
 	}
-
-
-	public static void main(String args[])
-	{
-		Axis test = new Axis();
-		int data[] = {1,2,3};
-		test.setData(data);
-		
-		
-	}
-	
 	
 	
 }
