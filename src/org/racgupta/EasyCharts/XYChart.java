@@ -9,11 +9,17 @@ package org.racgupta.EasyCharts;
  */
 public class XYChart extends Chart {
 
+		Styles axisStyle;
 	
 	
 
 	public XYChart() {
 		super();
+		axisStyle = new Styles();
+		axisStyle.setFill("none");
+		axisStyle.setStroke("#000");
+		axisStyle.setFontSize("11");
+		axisStyle.setFontFamily("sans-serif");
 		xAxis = new Axis();
 		yAxis = new Axis();
 		xAxis.setOrient("bottom");
@@ -23,11 +29,10 @@ public class XYChart extends Chart {
 
 	private Axis xAxis;
 	private Axis yAxis;
-
+	private String axisCode;
 	private String dataCode;
 	private String domainCode;
-	private String axisCode;
-	
+	private String axisTitle;
 	public String getDataCode() {
 		if(convertData())
 			return this.dataCode;
@@ -58,16 +63,18 @@ private Boolean convertData()
 		xyChartCode += getAxisCode();
 		xyChartCode +=getTitleCode();
 		xyChartCode += "svg.append(\"g\")"+
-				".attr(\"class\",\"x axis\")"+
+				".attr(\"class\",\"x axis\")"+axisStyle.getStyles()+
 				".attr(\"transform\", \"translate(0," + getHeight()+ ")\")"+
-				".call(xAxis);"+
-				"svg.append(\"g\")"+
-				".attr(\"class\", \"y axis\")"+
+				".call(xAxis);\n";
+		xyChartCode +="svg.append(\"text\").attr(\"x\","+(getTotalWidth()/2)+").attr(\"y\","+(getHeight()+getBottomMargin())+")"+
+				axisStyle.getStyles()+".attr(\"text-anchor\", \"middle\").text(\""+xAxis.getTitle()+"\");\n";
+		xyChartCode +="svg.append(\"g\")"+
+				".attr(\"class\", \"y axis\")"+axisStyle.getStyles()+
 				".call(yAxis);\n";
-		
+		xyChartCode +="svg.append(\"text\").attr(\"y\","+(0-getLeftMargin())+").attr(\"dy\", \"1em\").attr(\"transform\",\"rotate(-90)\")"+
+				axisStyle.getStyles()+".attr(\"x\","+(0-getHeight()/2)+").attr(\"text-anchor\", \"middle\").text(\""+yAxis.getTitle()+"\");\n";
 		return xyChartCode;
 	}
-
 	public void setxAxis(Axis xAxis) {
 		this.xAxis = xAxis;
 	}
@@ -92,6 +99,13 @@ private Boolean convertData()
 		axisCode += "var yAxis = d3.svg.axis().scale(y).orient(\""+ yAxis.getOrient()+ "\");\n";		
 		return axisCode;
 	}
+	public String getAxisTitle(){
+		axisTitle ="svg.append(\"text\").attr(\"x\","+(getTotalWidth()/2)+")"+
+					".attr(\"y\","+(getHeight()+getBottomMargin()/2)+").attr(\"text-anchor\", \"middle\").text(\""+xAxis.getTitle()+"\");";
+		axisTitle +="svg.append(\"text\").attr(\"y\","+(getTotalHeight()/2)+")"+
+				".attr(\"x\","+(0-getLeftMargin()/2)+").attr(\"transform\", \"rotate(-90)\").attr(\"text-anchor\", \"middle\").text(\""+xAxis.getTitle()+"\");";
 
+		return axisTitle;
+	}
 
 }
