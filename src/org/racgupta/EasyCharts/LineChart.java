@@ -13,9 +13,22 @@ package org.racgupta.EasyCharts;
 public class LineChart extends XYChart {
 
 	private String lineChartCode;
+	private Styles lineStyle;
+	private Styles textStyle;
+
 	
 	public LineChart() {
 		super();
+		lineStyle = new Styles();
+		textStyle = new Styles();
+		lineStyle.setFill("none");
+		lineStyle.setStroke("blue");
+//		lineStyle.setName("path");
+		textStyle.setFontFamily("sans-serif");
+		textStyle.setName("text");
+		textStyle.setFontSize("11");
+		
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -25,9 +38,11 @@ public class LineChart extends XYChart {
 		   ".x(function(d) { return x(d.x); })"+
 		    ".y(function(d) { return y(d.y); });\n";
 		lineChartCode +=  "svg.append(\"path\")"+
-			      		  ".datum(data)"+
+			      		  ".datum(data)"+lineStyle.getStyles()+
 			      		  ".attr(\"class\", \"line\")"+
 			      		  ".attr(\"d\", line);\n";
+	//	lineChartCode +=lineStyle.getStyleCode();
+	//	lineChartCode +=textStyle.getStyleCode();
 		return lineChartCode;
  
 	}
@@ -55,9 +70,7 @@ public class LineChart extends XYChart {
 		
 		lc.setxAxis(x);
 		lc.setyAxis(y);
-		
 		System.out.println(lc.getLineChartCode());
-		
 		
 	}
 	
