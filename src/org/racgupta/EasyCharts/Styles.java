@@ -10,6 +10,16 @@ public class Styles {
 	private String name;
 	private String styleCode;
 	
+	
+	public Styles()
+	{
+		
+	}
+	
+	public Styles(String name)
+	{
+		this.name = name;
+	}
 	public String getTextDecoration() {
 		if (textDecoration.length()>0)
 			return ".style(\"text-decoration\",\""+textDecoration+"\")";
