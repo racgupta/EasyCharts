@@ -27,7 +27,7 @@ public class Chart extends Region {
 	public Chart() {
 		super();
 		titleStyle = new Styles();
-		titleStyle.setFontSize("12");
+		titleStyle.setFontSize("14");
 		titleStyle.setFontFamily("sans-serif");
 		titleStyle.setTextDecoration("underline");
 		// TODO Auto-generated constructor stub
@@ -39,6 +39,11 @@ public class Chart extends Region {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+
+	public void setTitleStyle(Styles titleStyle) {
+		this.titleStyle = titleStyle;
 	}
 	
 	
