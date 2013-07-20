@@ -4,6 +4,8 @@
 
 package org.racgupta.EasyCharts;
 
+import java.util.Date;
+
 
 
 /**
@@ -23,7 +25,17 @@ public class Axis{
 	private String unit;
 	private String orient;
 	int[] data;
+	Date[] dateData;
+	private String Domain;
 	
+	
+	
+	public String getData(int i)
+	{
+		if(i>data.length)
+			return dateData[i].toGMTString();
+		return ""+data[i];
+	}
 	
 	
 	public int[] getData() {
@@ -34,9 +46,10 @@ public class Axis{
 		this.data = data;
 	}
 
-
-	//Output
-	private String Domain;
+	public void setData(Date[] data) {
+		this.dateData = data;
+	}
+	
 
 	public String getTitle() {
 		return title;
