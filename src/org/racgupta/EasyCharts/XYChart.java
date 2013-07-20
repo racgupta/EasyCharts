@@ -47,18 +47,11 @@ public class XYChart extends Chart {
 private Boolean convertData()
 {
 	dataCode = "var data=[";	
-/*	if((xAxis.data.length==0)&&(xAxis.dateData.length==0))
-			return false;	
-	if((yAxis.data.length==0)&&(yAxis.dateData.length==0))
-			return false;
-	*/
-	
-	
 	if(xAxis.data.length != yAxis.data.length )
 		return false;
 	for(int i =0;i<xAxis.getData().length;i++)
 	{
-		dataCode +="{x:"+ xAxis.getData(i)+",y:"+yAxis.getData(i)+"},";
+		dataCode +="{x:"+ xAxis.getData()[i]+",y:"+yAxis.getData()[i]+"},";
 	}
 	dataCode+="];\n";
 	return true;
