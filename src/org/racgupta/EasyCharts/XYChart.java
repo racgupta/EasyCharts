@@ -33,7 +33,6 @@ public class XYChart extends Chart {
 	private Axis yAxis;
 	private String axisCode;
 	private String dataCode;
-	private String domainCode;
 	private String axisTitle;
 	public String getDataCode() {
 		if(convertData())
@@ -68,7 +67,6 @@ private Boolean convertData()
 		
 		xyChartCode = getRegionCode();
 		xyChartCode += getDataCode();		
-		xyChartCode += getDomainCode();
 		xyChartCode += getAxisCode();
 		xyChartCode +=getTitleCode();
 		xyChartCode += "svg.append(\"g\")"+
@@ -94,14 +92,7 @@ private Boolean convertData()
 	}
 
 	
-	public String getDomainCode() {
 
-		domainCode = "var xDomain=d3.extent(data, function(d) { return d.x; });\n";
-		domainCode += "var yDomain=d3.extent(data, function(d) { return d.y; });\n";		
-		domainCode += "x.domain(xDomain);\n";
-		domainCode += "y.domain(yDomain);\n";
-		return domainCode;
-	}
 	
 	
 	public String getAxisCode() {
