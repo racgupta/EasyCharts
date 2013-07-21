@@ -13,7 +13,7 @@ public class AreaChart extends XYChart {
 	private String areaChartCode;
 	private Styles areaStyle;
 	private Styles textStyle;
-
+	private String domainCode;
 	
 	public AreaChart() {
 		super();
@@ -30,6 +30,7 @@ public class AreaChart extends XYChart {
 
 	public String getLineChartCode(){
 		areaChartCode = getXYChartCode();
+		areaChartCode += getDomainCode();
 		areaChartCode += "var line = d3.svg.area()"+
 		   ".x(function(d) { return x(d.x); })"+
 		   ".y0("+getHeight()+")"+ 
@@ -66,6 +67,14 @@ public class AreaChart extends XYChart {
 		System.out.println(lc.getLineChartCode());
 		
 	}
-	
+	public String getDomainCode() {
+
+		domainCode = "var xDomain=d3.extent(data, function(d) { return d.x; });\n";
+		domainCode += "var yDomain=d3.extent(data, function(d) { return d.y; });\n";		
+		domainCode += "x.domain(xDomain);\n";
+		domainCode += "y.domain(yDomain);\n";
+		return domainCode;
+	}
+		
 }
 

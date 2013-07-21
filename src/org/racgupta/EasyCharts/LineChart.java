@@ -41,8 +41,6 @@ public class LineChart extends XYChart {
 			      		  ".datum(data)"+lineStyle.getStyles()+
 			      		  ".attr(\"class\", \"line\")"+
 			      		  ".attr(\"d\", line);\n";
-	//	lineChartCode +=lineStyle.getStyleCode();
-	//	lineChartCode +=textStyle.getStyleCode();
 		return lineChartCode;
  
 	}
