@@ -15,7 +15,7 @@ public class LineChart extends XYChart {
 	private String lineChartCode;
 	private Styles lineStyle;
 	private Styles textStyle;
-	private String domainCode;
+
 	
 	public LineChart() {
 		super();
@@ -33,7 +33,7 @@ public class LineChart extends XYChart {
 
 	public String getLineChartCode(){
 		lineChartCode = getXYChartCode();
-		lineChartCode += getDomainCode();
+		
 		lineChartCode += "var line = d3.svg.line()"+
 		   ".x(function(d) { return x(d.x); })"+
 		    ".y(function(d) { return y(d.y); });\n";
@@ -47,38 +47,37 @@ public class LineChart extends XYChart {
 
 	public static void main(String args[])
 	{
-		int[] users = { 10, 15, 12, 14, 16, 8, 9, 10,14,17,14,12,68,90,32,46,22,24,80,22,78,12,98};
-		int[] time = { 10, 20, 30, 40, 50, 60, 70, 80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230 };
-//		System.out.println("Inside Main"+time.length);
-		//chart begins
+		int[] values = { 10, 15, 12, 14, 16, 8, 9, 10,14,17,14,12,68,90,32,46,22,24,80,22,78,12,98};
+		String[] users1 = { "A", "B", "C", "D", "E", "F", "G", "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W"};
+		int[] users = { 10, 20, 30, 40, 50, 60, 70, 80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230 };
 		LineChart lc = new LineChart();
 		lc.setTitle("Customized chart using D3JS");
 		
 		Axis x = new Axis();
 		Axis y = new Axis();
 		
-		x.setTitle("Time");		
-		x.setData(time);
-		x.setOrient("bottom");
+		x.setTitle("Users"); //optional		
+		x.setOrient("bottom"); //Optional
 		
-		y.setTitle("Users");		
-		y.setData(users);
-		y.setOrient("left");
+		
+		// Use only one of below three function
+		x.setMin(0);		//Optional
+		x.setMax(500);		//Optional
+		x.setDomain(0,500);		//Optional
+		x.setTickCount(30);
+	
+		
+		
+		x.setData(users);
+		
+		y.setTitle("Values");		// optional
+		y.setOrient("left");		//optional
+		y.setData(values);
 		
 		lc.setxAxis(x);
 		lc.setyAxis(y);
 		System.out.println(lc.getLineChartCode());
 		
-	}
-	
-	public String getDomainCode() {
-
-		domainCode = "var xDomain=d3.extent(data, function(d) { return d.x; });\n";
-		domainCode += "var yDomain=d3.extent(data, function(d) { return d.y; });\n";		
-		domainCode += "x.domain(xDomain);\n";
-		domainCode += "y.domain(yDomain);\n";
-		return domainCode;
-	}
-	
+	}	
 }
 
