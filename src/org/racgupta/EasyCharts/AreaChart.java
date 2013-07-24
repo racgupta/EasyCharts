@@ -13,7 +13,6 @@ public class AreaChart extends XYChart {
 	private String areaChartCode;
 	private Styles areaStyle;
 	private Styles textStyle;
-	private String domainCode;
 	
 	public AreaChart() {
 		super();
@@ -30,7 +29,6 @@ public class AreaChart extends XYChart {
 
 	public String getLineChartCode(){
 		areaChartCode = getXYChartCode();
-		areaChartCode += getDomainCode();
 		areaChartCode += "var line = d3.svg.area()"+
 		   ".x(function(d) { return x(d.x); })"+
 		   ".y0("+getHeight()+")"+ 
@@ -45,8 +43,11 @@ public class AreaChart extends XYChart {
 
 	public static void main(String args[])
 	{
-		int[] users = { 10, 15, 12, 14, 16, 8, 9, 10,14,17,14,12,68,90,32,46,22,24,80,22,78,12,98};
-		int[] time = { 10, 20, 30, 40, 50, 60, 70, 80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230 };
+		//int[] users = { 10, 15, 12, 14, 16};
+		//int[] time = { 10, 20, 30, 40, 50};
+		int[] users = { 10, 15, 12, 14, 16, 8, 9, 10};
+		int[] time = { 100, 200, 300, 400, 500, 600, 700, 800 };
+
 		//chart begins
 		AreaChart lc = new AreaChart();
 		lc.setTitle("Customized chart using D3JS");
@@ -66,14 +67,6 @@ public class AreaChart extends XYChart {
 		lc.setyAxis(y);
 		System.out.println(lc.getLineChartCode());
 		
-	}
-	public String getDomainCode() {
-
-		domainCode = "var xDomain=d3.extent(data, function(d) { return d.x; });\n";
-		domainCode += "var yDomain=d3.extent(data, function(d) { return d.y; });\n";		
-		domainCode += "x.domain(xDomain);\n";
-		domainCode += "y.domain(yDomain);\n";
-		return domainCode;
 	}
 		
 }
