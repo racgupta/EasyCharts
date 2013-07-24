@@ -21,36 +21,55 @@ public class Axis{
 	private String title;
 	private long min;
 	private long max;
-	private long tickInterval;
+	private long tickCount = -1;
+	
 	private String unit;
 	private String orient;
-	int[] data;
-	Date[] dateData;
-	private String Domain;
+	private String domain;
 	
+	private int[] intData;
+	private Date[] dateData;
+	private String[] strData;
 	
+	private int dataLen = -1;
+	private int intLen = -1;
+	private int strLen = -1;
+	private int dateLen = -1;
 	
 	public String getData(int i)
 	{
-		if(i>data.length)
+		if(intLen>-1)
+			return ""+intData[i];
+		if(dateLen>-1)
 			return dateData[i].toGMTString();
-		return ""+data[i];
+		if(strLen>-1)
+			return strData[i];
+		return "";
 	}
 	
-	
+	/*
 	public int[] getData() {
 		return data;
 	}
-
+*/
 	public void setData(int[] data) {
-		this.data = data;
+		this.intData = data;
+		this.intLen = data.length;
+		this.dataLen = data.length;
+		
 	}
 
 	public void setData(Date[] data) {
 		this.dateData = data;
+		this.dateLen = data.length;
+		this.dataLen = data.length;
 	}
 	
-
+	public void setData(String[] data) {
+		this.strData = data;
+		this.strLen = data.length;
+		this.dataLen = data.length;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -64,7 +83,9 @@ public class Axis{
 	}
 
 	public void setMin(long min) {
-		this.min = min;
+		this.min = min; 
+		this.domain = "["+min+",d3.max(data, function(d) { return d.x; })]";
+		
 	}
 
 	public long getMax() {
@@ -73,14 +94,23 @@ public class Axis{
 
 	public void setMax(long max) {
 		this.max = max;
+		this.domain = "[d3.min(data, function(d) { return d.x; }),"+this.max+"]";
 	}
 
-	public long getTickInterval() {
-		return tickInterval;
+	
+	public void setDomain(long min, long max) {
+		this.min = min;
+		this.max = max;
+		this.domain = "["+min+","+this.max+"]";
 	}
 
-	public void setTickInterval(long tickInterval) {
-		this.tickInterval = tickInterval;
+	
+	public long getTickCount() {
+		return tickCount;
+	}
+
+	public void setTickCount(long tickCount) {
+		this.tickCount = tickCount;
 	}
 
 	public String getUnit() {
@@ -99,13 +129,20 @@ public class Axis{
 		this.orient = orient;
 	}
 
-
+		
 	public String getDomain() {
-		return Domain;
+		return domain;
 	}
 
+
+	
+	
 	public void setDomain(String domain) {
-		Domain = domain;
+		this.domain = domain;
+	}
+
+	public int getDataLen() {
+		return dataLen;
 	}
 	
 	
