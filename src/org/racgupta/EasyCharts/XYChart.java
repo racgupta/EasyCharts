@@ -11,7 +11,7 @@ public class XYChart extends Chart {
 
 		Styles lineStyle;
 		Styles textStyle;
-	
+		private String domainCode;
 	
 
 	public XYChart() {
@@ -22,13 +22,7 @@ public class XYChart extends Chart {
 		textStyle = new Styles();
 		textStyle.setFontSize("12");
 		textStyle.setFontFamily("sans-serif");
-		xAxis = new Axis();
-		yAxis = new Axis();
-		xAxis.setOrient("bottom");
-		yAxis.setOrient("left");
-		
 	}
-
 	private Axis xAxis;
 	private Axis yAxis;
 	private String axisCode;
@@ -46,16 +40,10 @@ public class XYChart extends Chart {
 private Boolean convertData()
 {
 	dataCode = "var data=[";	
-/*	if((xAxis.data.length==0)&&(xAxis.dateData.length==0))
-			return false;	
-	if((yAxis.data.length==0)&&(yAxis.dateData.length==0))
-			return false;
-	*/
 	
-	
-	if(xAxis.data.length != yAxis.data.length )
+	if(xAxis.getDataLen() != yAxis.getDataLen())
 		return false;
-	for(int i =0;i<xAxis.getData().length;i++)
+	for(int i =0;i<xAxis.getDataLen();i++)
 	{
 		dataCode +="{x:"+ xAxis.getData(i)+",y:"+yAxis.getData(i)+"},";
 	}
@@ -64,9 +52,9 @@ private Boolean convertData()
 	
 }
 	public String getXYChartCode() {
-		
-		xyChartCode = getRegionCode();
-		xyChartCode += getDataCode();		
+		xyChartCode = getDataCode();	
+		xyChartCode += getRegionCode();
+		xyChartCode += getDomainCode();
 		xyChartCode += getAxisCode();
 		xyChartCode +=getTitleCode();
 		xyChartCode += "svg.append(\"g\")"+
@@ -96,8 +84,14 @@ private Boolean convertData()
 	
 	
 	public String getAxisCode() {
-		axisCode = "var xAxis = d3.svg.axis().scale(x).orient(\"" + xAxis.getOrient()+ "\");\n";
-		axisCode += "var yAxis = d3.svg.axis().scale(y).orient(\""+ yAxis.getOrient()+ "\");\n";		
+		String test =(xAxis.getOrient()!=null) ?  xAxis.getOrient():"bottom"; 
+		axisCode = "var xAxis = d3.svg.axis().scale(x).orient(\"" + test+ "\")";
+		axisCode += (xAxis.getTickCount()>0) ?  ".ticks("+xAxis.getTickCount()+")":"";
+		axisCode += ";\n"; 
+		test =(yAxis.getOrient()!=null) ?  yAxis.getOrient():"left";
+		axisCode += "var yAxis = d3.svg.axis().scale(y).orient(\"" + test+ "\")";		
+		axisCode += (yAxis.getTickCount()>0) ?  ".ticks("+yAxis.getTickCount()+")":"";
+		axisCode += ";\n"; 
 		return axisCode;
 	}
 	public String getAxisTitle(){
@@ -108,5 +102,18 @@ private Boolean convertData()
 
 		return axisTitle;
 	}
+
+	public String getDomainCode() {
+		if(xAxis.getDomain()!=null)
+			domainCode = "x.domain("+xAxis.getDomain()+");\n";
+		else
+			domainCode = "x.domain(d3.extent(data, function(d) { return d.x; }));\n";
+		if(yAxis.getDomain()!=null)
+			domainCode += "y.domain("+yAxis.getDomain()+");\n";
+		else
+			domainCode +="y.domain(d3.extent(data, function(d) { return d.y; }));\n";
+		return domainCode;
+	}
+	
 
 }
