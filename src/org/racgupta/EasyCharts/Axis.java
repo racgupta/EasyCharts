@@ -47,11 +47,7 @@ public class Axis{
 		return "";
 	}
 	
-	/*
-	public int[] getData() {
-		return data;
-	}
-*/
+
 	public void setData(int[] data) {
 		this.intData = data;
 		this.intLen = data.length;
