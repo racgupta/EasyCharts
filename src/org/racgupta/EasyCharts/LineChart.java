@@ -62,11 +62,10 @@ public class LineChart extends XYChart {
 		
 		// Use only one of below three function
 		x.setMin(0);		//Optional
-		x.setMax(500);		//Optional
-		x.setDomain(0,500);		//Optional
+		x.setMax(300);		//Optional
+		x.setDomain(0,300);		//Optional
 		x.setTickCount(30);
 	
-		
 		
 		x.setData(users);
 		
