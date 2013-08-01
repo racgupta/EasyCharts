@@ -3,6 +3,8 @@ package org.racgupta.EasyCharts;
 public class Line {
 	
 		public Line() {
+			
+			color = null;
 		}
 
 

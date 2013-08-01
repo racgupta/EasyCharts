@@ -74,7 +74,7 @@ public String convertData(int s[])
 			dataCode +="{x:"+ xAxis.getData(i)+",y:"+s[i]+"},";
 		
 	}
-	dataCode+="];\n";
+	dataCode+="]\n";
 	return dataCode;
 	
 }
