@@ -56,6 +56,30 @@ private Boolean convertData()
 	return true;
 	
 }
+
+
+
+public String convertData(int s[])
+{
+	dataCode = "";
+	if(xAxis.getDataLen() != s.length)
+		return "";
+//	dataCode += "var "+varName+"=[";	
+	dataCode += "[";
+	for(int i =0;i<s.length;i++)
+	{
+		if(xAxis.getDateLen()>-1)
+			dataCode +="{x:parseDate(\""+ xAxis.getData(i)+"\"),y:"+s[i]+"},";
+		else
+			dataCode +="{x:"+ xAxis.getData(i)+",y:"+s[i]+"},";
+		
+	}
+	dataCode+="];\n";
+	return dataCode;
+	
+}
+
+
 	public String getXYChartCode() {
 		xyChartCode = getDataCode();	
 		xyChartCode += (xAxis.getDateLen()>-1) ? getXTimeScale(): getXLinearScale();
