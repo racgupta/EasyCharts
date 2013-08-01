@@ -3,6 +3,10 @@
  */
 package org.racgupta.EasyCharts;
 
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+
 
 
 
@@ -53,6 +57,25 @@ public class LineChart extends XYChart {
 		LineChart lc = new LineChart();
 		lc.setTitle("Customized chart using D3JS");
 		
+				
+        Date[] dates = new Date[23];
+        
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(System.currentTimeMillis());
+        int numDays = 23;
+        
+        // go 30 days back
+        c.add(Calendar.DATE, 0 - numDays);
+        
+        // start a loop
+        for(int i = 0; i < numDays; i++) {
+               c.add(Calendar.DATE, i);
+               dates[i] = c.getTime();
+        }
+        
+        // here you have the date array for last 30 days
+  //      System.out.println(Arrays.toString(dates));
+
 		Axis x = new Axis();
 		Axis y = new Axis();
 		
@@ -61,14 +84,14 @@ public class LineChart extends XYChart {
 		
 		
 		// Use only one of below three function
-		x.setMin(0);		//Optional
-		x.setMax(300);		//Optional
-		x.setDomain(0,300);		//Optional
-		x.setTickCount(30);
+		//x.setMin(0);		//Optional
+		//x.setMax(300);		//Optional
+		//x.setDomain(0,300);		//Optional
+//		x.setTickCount(30);
 	
 		
-		x.setData(users);
-		
+		//x.setData(users);
+		x.setData(dates);
 		y.setTitle("Values");		// optional
 		y.setOrient("left");		//optional
 		y.setData(values);
