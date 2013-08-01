@@ -41,7 +41,7 @@ public class Axis{
 		if(intLen>-1)
 			return ""+intData[i];
 		if(dateLen>-1)
-			return dateData[i].toGMTString();
+			return ""+dateData[i].getDate()+"-"+dateData[i].getMonth()+"-"+(dateData[i].getYear()+1900);
 		if(strLen>-1)
 			return strData[i];
 		return "";
@@ -139,6 +139,10 @@ public class Axis{
 
 	public int getDataLen() {
 		return dataLen;
+	}
+	
+	public int getDateLen() {
+		return dateLen;
 	}
 	
 	
