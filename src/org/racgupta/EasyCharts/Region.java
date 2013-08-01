@@ -17,7 +17,7 @@ public class Region {
 	private String yArea;
 	private String regionCode;
 	private String svgRegion;
-	
+
 	public Region() {
 		super();
 		this.totalWidth = 800;
@@ -30,14 +30,16 @@ public class Region {
 
 	}	
 
-	
+
 	public String getSvgRegion() {
 		this.svgRegion = "var svg = d3.select(\"body\").append(\"svg\")"+
 			    ".attr(\"width\","+this.totalWidth+")"+
 			    ".attr(\"height\","+this.totalHeight+")"+
 			    ".append(\"g\")"+
 			    ".attr(\"transform\", \"translate(" + this.leftMargin + "," + this.topMargin + ")\");\n";
+		
 		return svgRegion;
+		
 	}
 
 
@@ -97,13 +99,18 @@ public class Region {
 		this.bottomMargin = bottomMargin;
 	}
 
-	public String getXArea(){
+	public String getXLinearScale(){
 		this.width = this.totalWidth - this.leftMargin - this.rightMargin;
 		xArea="var x = d3.scale.linear().range([0," + getWidth()+"]);\n";
 		return xArea;
 		
 	}
-
+	public String getXTimeScale(){
+		this.width = this.totalWidth - this.leftMargin - this.rightMargin;
+		xArea="var x = d3.time.scale().range([0," + getWidth()+"]);\n";
+		return xArea;
+		
+	}
 	public String getYArea(){
 		this.height = this.totalHeight - this.topMargin - this.bottomMargin;
 		yArea="var y = d3.scale.linear().range(["+ getHeight()+",0]);\n";
@@ -113,7 +120,7 @@ public class Region {
 	
 	public String getRegionCode()
 	{
-		this.regionCode = getXArea()+getYArea()+getSvgRegion();
+		this.regionCode = getXLinearScale()+getYArea()+getSvgRegion();
 		return regionCode;
 	}
 }
