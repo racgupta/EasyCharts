@@ -72,8 +72,10 @@ public class MultiLineChart extends XYChart {
 		{ 
 			linesCode +=  "svg.append(\"path\")"+
 		      		  ".datum("+convertData(line.getData())+")"+lineStyle.getStyles()+
-		      		  ".attr(\"class\", \"line\")"+
-		      		  ".attr(\"d\", line);\n";
+		      		  ".attr(\"class\", \"line\")";
+		    if(line.getColor()!=null)
+		    	linesCode +=".style(\"stroke\",\""+line.getColor()+"\")";
+		    linesCode +=".attr(\"d\", line);\n";
 		}
 		return linesCode;
  
@@ -84,6 +86,7 @@ public class MultiLineChart extends XYChart {
 	{
 		int[] values = { 10, 15, 12, 14, 16, 8, 9, 10,14,17,14,12,68,90,32,46,22,24,80,22,78,12,98};
 		int[] data2  = { 1, 65, 62, 64, 66, 48, 79, 80,74,77,74,72,18,10,12,16,22,24,10,72,18,42,8};
+		int[] data3  = { 1, 6, 2, 64, 16, 4, 7, 0,4,7,4,2,8,90,82,76,82,24,90,72,18,42,8};
 		String[] users1 = { "A", "B", "C", "D", "E", "F", "G", "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W"};
 		int[] users = { 10, 20, 30, 40, 50, 60, 70, 80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230 };
 		MultiLineChart lc = new MultiLineChart();
@@ -91,8 +94,14 @@ public class MultiLineChart extends XYChart {
 		
 		Line l = new Line();
 		l.setData(data2);
-		
+		l.setColor("red");
 		lc.addLines(l);
+		
+		Line l1 = new Line();
+		l1.setData(data3);
+		l1.setColor("green");
+		//lc.addLines(l1);
+		
         Date[] dates = new Date[23];
         
         Calendar c = Calendar.getInstance();
