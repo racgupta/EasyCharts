@@ -39,13 +39,18 @@ public class XYChart extends Chart {
 	
 private Boolean convertData()
 {
-	dataCode = "var data=[";	
-	
+	dataCode = "";
 	if(xAxis.getDataLen() != yAxis.getDataLen())
 		return false;
+	if(xAxis.getDateLen()>-1)
+		dataCode +="var parseDate = d3.time.format(\"%d-%m-%Y\").parse;\n";
+	dataCode += "var data=[";	
 	for(int i =0;i<xAxis.getDataLen();i++)
 	{
-		dataCode +="{x:"+ xAxis.getData(i)+",y:"+yAxis.getData(i)+"},";
+		if(xAxis.getDateLen()>-1)
+			dataCode +="{x:parseDate(\""+ xAxis.getData(i)+"\"),y:"+yAxis.getData(i)+"},";
+		else
+			dataCode +="{x:"+ xAxis.getData(i)+",y:"+yAxis.getData(i)+"},";
 	}
 	dataCode+="];\n";
 	return true;
@@ -53,7 +58,12 @@ private Boolean convertData()
 }
 	public String getXYChartCode() {
 		xyChartCode = getDataCode();	
-		xyChartCode += getRegionCode();
+		xyChartCode += (xAxis.getDateLen()>-1) ? getXTimeScale(): getXLinearScale();
+		xyChartCode += getYArea();
+		xyChartCode += getSvgRegion();
+	
+		
+		
 		xyChartCode += getDomainCode();
 		xyChartCode += getAxisCode();
 		xyChartCode +=getTitleCode();
